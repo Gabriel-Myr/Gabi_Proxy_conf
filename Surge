@@ -80,21 +80,19 @@ geoip-maxmind-url = https://unpkg.zhimg.com/rulestatic@1.0.1/Country.mmdb
 
 [Proxy Group]
 # Normal
-节点选择 = select, 剩余流量：150 GB, 套餐到期：2025-03-15, 高速隧道, 专线, 香港节点, 新加坡节点, 美国节点  update-interval=0, include-all-proxies=1
+节点选择 = select, 剩余流量：150 GB, 套餐到期：2025-03-15, 高速隧道, 专线, 香港节点, 新加坡节点
 高速隧道 = url-test, update-interval=0, include-all-proxies=1, policy-regex-filter=^(?=.*高速隧道).*
 专线 = url-test, update-interval=0, include-all-proxies=1, policy-regex-filter=^(?=.*专线).*
 香港节点 = select, 1x香港, 2.5x香港, update-interval=0
 新加坡节点 = select, 1x新加坡, 2.5x新加坡, update-interval=0
 美国节点 = select, 1x美国, 2.5x美国, update-interval=0
 # More
-1x香港 = url-test, update-interval=0, include-all-proxies=1, policy-regex-filter=^(?!.*专线).*香港.*
-1x新加坡 = url-test, include-all-proxies=1, policy-regex-filter=^(?!.*专线).*新加坡.*
-1x美国 = url-test, include-all-proxies=1, policy-regex-filter=^(?!.*专线).*美国.*
-2.5x香港 = url-test, include-all-proxies=1, policy-regex-filter=^(?=.*香港)(?=.*专线).*
-2.5x新加坡 = url-test, include-all-proxies=1, policy-regex-filter=^(?=.*新加坡)(?=.*专线).*
-2.5x美国 = url-test, include-all-proxies=1, policy-regex-filter=^(?=.*专线)(?=.*美国).*
-其他专线 = url-test, include-all-proxies=1, policy-regex-filter=^(?!.*(香港|新加坡|美国)).*专线.*
-
+1x香港 = url-test, include-all-proxies=1, policy-regex-filter=^(?!.*专线).*香港.*, hidden=1
+1x新加坡 = url-test, include-all-proxies=1, policy-regex-filter=^(?!.*专线).*新加坡.*, hidden=1
+1x美国 = url-test, include-all-proxies=1, policy-regex-filter=^(?!.*专线).*美国.*, hidden=1
+2.5x香港 = url-test, include-all-proxies=1, policy-regex-filter=^(?=.*香港)(?=.*专线).*, hidden=1
+2.5x新加坡 = url-test, include-all-proxies=1, policy-regex-filter=^(?=.*新加坡)(?=.*专线).*, hidden=1
+2.5x美国 = url-test, include-all-proxies=1, policy-regex-filter=^(?=.*专线)(?=.*美国).*, hidden=1
 
 [Rule]
 # 特殊规则
@@ -102,12 +100,12 @@ geoip-maxmind-url = https://unpkg.zhimg.com/rulestatic@1.0.1/Country.mmdb
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Riot/Riot.list,专线
 # 国内网站
 # # Surge 5.21.0(2952)以下版本ChinaMax.list、ChinaMax_Domain.list 共同使用
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list, DIRECT
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list, DIRECT
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT
 # 国外网站
 # # Surge 5.21.0(2952)以下版本Proxy.list、Proxy_Domain.list 共同使用
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list, 节点选择
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list, 节点选择
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,节点选择
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Proxy/Proxy_Domain.list,节点选择
 # 最终规则
 GEOIP,CN,DIRECT
 FINAL,节点选择,dns-failed
@@ -125,4 +123,3 @@ SubscribeInfo = title=悠兔订阅信息,content=上传流量：0GB\n下载流�
 # Surge 现已支持 TCP-Fast-Open 技术，请参考: https://trello.com/c/ij65BU6Q/48-tcp-fast-open-troubleshooting-guide
 # Surge 现已支持 ss-libev 的全部加密方式和混淆，请参考: https://trello.com/c/BTr0vG1O/47-ss-libev-%E7%9A%84%E6%94%AF%E6%8C%81%E6%83%85%E5%86%B5
 # -----------------------------
-
